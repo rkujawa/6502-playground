@@ -34,7 +34,7 @@ echo1:  lda IOSTATUS    ; Read the ACIA status
         sta IOBASE      ; write to output,
         rti		; and return
 
-.section "vectors","adrw"
+.section "vectors","adr"
 
 .word   irq		; NMI vector
 .word   start		; RESET vector
