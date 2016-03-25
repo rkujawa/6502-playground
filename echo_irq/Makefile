@@ -1,13 +1,17 @@
 AS=vasm6502_std
 LD=vlink
 
-all: echo_irq
+ROM=echo_irq.rom
+OBJS=echo_irq.o
+LDSCRIPT=symon.ld
 
-echo_irq: echo_irq.o
-	$(LD) -M -brawbin1 -T symon.ld -o echo_irq.rom echo_irq.o
+all: $(ROM)
 
-echo_irq.o:
-	$(AS) -Fvobj -o echo_irq.o echo_irq.s
+$(ROM): $(OBJS) $(LDSCRIPT)
+	$(LD) -M -brawbin1 -T $(LDSCRIPT) -o $(ROM) $(OBJS)
+
+%.o : %.s
+	$(AS) -Fvobj -o $@ $<
 
 clean:
 	rm -f *.o *.rom 
